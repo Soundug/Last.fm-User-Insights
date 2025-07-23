@@ -25,9 +25,16 @@ kpi = {
     'Power Users (80/20)': (user_play_dist.cumsum() / total_plays <= 0.8).sum()
 }
 
-
 st.subheader("Business KPIs")
 st.write(pd.Series(kpi))
+
+st.markdown("**Summary & Recommendation:**")
+st.write("""
+- Rock dominates plays, but Electronic/Pop have high engagement—target with personalized playlists.
+- 20% of users drive 80% of all plays; engage casual listeners with weekly mixes.
+- Product team can use these insights for user retention and feature launches.
+""")
+
 
 #Top Genres
 st.subheader("Top 10 Genres by Playcount")
@@ -46,9 +53,13 @@ top_artists.plot(kind='barh', color='navy', ax=ax2)
 plt.xlabel('Total Plays')
 st.pyplot(fig2)
 
-st.markdown("**Summary & Recommendation:**")
-st.write("""
-- Rock dominates plays, but Electronic/Pop have high engagement—target with personalized playlists.
-- 20% of users drive 80% of all plays; engage casual listeners with weekly mixes.
-- Product team can use these insights for user retention and feature launches.
-""")
+#Distribution of playcount per user
+st.subheader("User Engagement Distribution")
+
+user_play_dist = df.groupby('user_id')['playcount'].sum()
+fig3, ax3 = plt.subplots()
+user_play_dist.plot(kind='hist', bins=20, color='limegreen', ax=ax3)
+plt.xlabel('Playcount')
+plt.ylabel('Number of Users')
+plt.title('Distribution of Total Playcount per User')
+st.pyplot(fig3)
