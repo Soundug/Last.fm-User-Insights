@@ -2,12 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('merged_user_track_data.csv')
-
-# Get a random sample of 5000 rows
-df_sample = df.sample(n=5000, random_state=42)  # Change n to 1000 or 10000 if you want
-
-# Save to a new CSV
 df_sample.to_csv('sample_merged_user_track_data.csv', index=False)
 df.columns = df.columns.str.strip()
 
